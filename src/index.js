@@ -7,6 +7,7 @@ import reducer from './reducers'
 import thunk from 'redux-thunk'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import MultiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import EventsIndex from './components/events_index';
 import EventsNew from './components/events_new';
@@ -21,16 +22,18 @@ const store = createStore(reducer, enhancer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/events/new" component={EventsNew}/>
-          <Route path="/events/:id" component={EventsShow}/>
-          <Route exact path="/" component={EventsIndex}/>
-          <Route exact path="/events" component={EventsIndex}/>
-        </Switch>
-      </BrowserRouter>
-    </Provider>
+    <MultiThemeProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/events/new" component={EventsNew}/>
+            <Route path="/events/:id" component={EventsShow}/>
+            <Route exact path="/" component={EventsIndex}/>
+            <Route exact path="/events" component={EventsIndex}/>
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </MultiThemeProvider>  
   </React.StrictMode>,
   document.getElementById('root')
 );
